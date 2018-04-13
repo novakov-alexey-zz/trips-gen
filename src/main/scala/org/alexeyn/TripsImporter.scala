@@ -21,7 +21,7 @@ object TripsImporter extends App {
     .map(_.map(_ => TripGenerator.tripGen.sample.get))
     .foldLeft(Seq[Future[Unit]]() -> 1) {
       case ((acc, i), s) =>
-        println(s"batch size of ${s.length}")
+        println(s"generated batch of ${s.length} size")
         val f = insertTrip(s)
         f.onComplete(_.foreach(_ => println(s"batch completed $i")))
         (acc :+ f, i + 1)
@@ -39,6 +39,6 @@ object TripsImporter extends App {
   }
 
   private def initDatabase() = {
-    db.run(DBIO.seq(TripDao.dropSchema(), TripDao.createSchema()))
+    db.run(DBIO.seq(TripDao.dropSchema().andFinally(TripDao.createSchema())))
   }
 }
