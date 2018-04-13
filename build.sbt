@@ -21,12 +21,12 @@ lazy val projectSettings = Seq(
   cancelable in Global := true
 )
 
-val doobieVersion = "0.5.2"
+val slickVersion = "3.2.1"
 lazy val projectDependencies = Seq(
-  "com.chuusai" %% "shapeless" % "2.3.3",
-  "org.typelevel" %% "cats-core" % "1.1.0",
-  "org.tpolecat" %% "doobie-core" % doobieVersion,
-  "org.tpolecat" %% "doobie-postgres" % doobieVersion,
+  "org.postgresql" % "postgresql" % "9.4-1203-jdbc4",
+  "com.typesafe.slick" %% "slick" % slickVersion,
+  "org.slf4j" % "slf4j-nop" % "1.6.4",
+  "com.typesafe.slick" %% "slick-hikaricp" % slickVersion,
   "org.scalacheck" %% "scalacheck" % "1.13.5"
 )
 
@@ -45,7 +45,7 @@ lazy val advanceScalacOptions = Seq(
   "-Xcheckinit", // Wrap field accessors to throw an exception on uninitialized access.
   "-Xfatal-warnings", // Fail the compilation if there are any warnings.
   "-Xfuture", // Turn on future language features.
-  "-Xlint:adapted-args", // Warn if an argument list is modified to match the receiver.
+  //"-Xlint:adapted-args", // Warn if an argument list is modified to match the receiver.
   "-Xlint:by-name-right-associative", // By-name parameter of right associative operator.
   "-Xlint:constant", // Evaluation of a constant arithmetic expression results in an error.
   "-Xlint:delayedinit-select", // Selecting member of DelayedInit.
@@ -62,7 +62,7 @@ lazy val advanceScalacOptions = Seq(
   "-Xlint:stars-align", // Pattern sequence wildcard must align with sequence component.
   "-Xlint:type-parameter-shadow", // A local type parameter shadows a type already in scope.
   "-Xlint:unsound-match", // Pattern match may not be typesafe.
-  "-Yno-adapted-args", // Do not adapt an argument list (either by inserting () or creating a tuple) to match the receiver.
+//  "-Yno-adapted-args", // Do not adapt an argument list (either by inserting () or creating a tuple) to match the receiver.
   "-Ypartial-unification", // Enable partial unification in type constructor inference
   "-Ywarn-dead-code", // Warn when dead code is identified.
   "-Ywarn-extra-implicit", // Warn when more than one implicit parameter section is defined.
