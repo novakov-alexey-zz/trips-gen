@@ -15,7 +15,7 @@ case class Trip(
   bLocation: String,
   completed: Boolean,
   startTime: LocalDateTime,
-  endTime: LocalDateTime,
+  endTime: Option[LocalDateTime] = None,
   durationInMin: Long,
   costPerHour: Double,
   requestTime: LocalDateTime,

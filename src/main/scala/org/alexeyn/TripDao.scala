@@ -46,7 +46,7 @@ object TripDao extends DAO[Trip] {
 
     def startTime = column[LocalDateTime]("start_time")
 
-    def endTime = column[LocalDateTime]("end_time")
+    def endTime = column[Option[LocalDateTime]]("end_time", O.Default(None))
 
     def durationMin = column[Long]("duration_min")
 

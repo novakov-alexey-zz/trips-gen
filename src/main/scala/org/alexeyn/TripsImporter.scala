@@ -18,7 +18,7 @@ object TripsImporter extends App {
 
   val (batches, batchCount) = (1 to tripsCount).toStream
     .grouped(batchSize)
-    .map(_.map(_ => TripGenerator.tripGen.sample.get))
+    .map(_.map(_ => TripGen.tripGen.sample.get))
     .foldLeft(Seq[Future[Unit]]() -> 1) {
       case ((acc, i), s) =>
         println(s"generated batch of ${s.length} size")
@@ -39,6 +39,6 @@ object TripsImporter extends App {
   }
 
   private def initDatabase() = {
-    db.run(DBIO.seq(TripDao.dropSchema().andFinally(TripDao.createSchema())))
+    db.run(DBIO.seq(TripDao.dropSchema().asTry.andFinally(TripDao.createSchema())))
   }
 }
