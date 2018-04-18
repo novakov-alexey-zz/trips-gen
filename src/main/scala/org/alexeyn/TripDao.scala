@@ -20,10 +20,10 @@ trait DAO[T] {
 object TripDao extends DAO[Trip] {
 
   implicit val vehicleTypeEnumMapper =
-    MappedColumnType.base[VehicleType, String](e => e.toString, s => VehicleType.withName(s))
+    MappedColumnType.base[VehicleType, String](_.toString, VehicleType.withName)
 
   implicit val localDateTimeColumnType = MappedColumnType
-    .base[LocalDateTime, Timestamp](d => Timestamp.from(d.toInstant(ZoneOffset.ofHours(0))), d => d.toLocalDateTime)
+    .base[LocalDateTime, Timestamp](d => Timestamp.from(d.toInstant(ZoneOffset.ofHours(0))), _.toLocalDateTime)
 
   class Trips(tag: Tag) extends Table[Trip](tag, "trip") {
     def tripId = column[Long]("tripId", O.AutoInc, O.PrimaryKey)

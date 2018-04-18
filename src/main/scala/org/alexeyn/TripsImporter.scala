@@ -31,14 +31,11 @@ object TripsImporter extends App {
   Await.result(Future.sequence(batches), Duration.Inf)
 
   val duration = (System.nanoTime() - startTime).nanos.toSeconds
-
   printf(s"\nTook time: %02d:%02d:%02d\n", duration / 3600, (duration % 3600) / 60, duration % 60)
 
-  private def insertTrip(s: Stream[Trip]) = {
+  private def insertTrip(s: Stream[Trip]) =
     db.run(DBIOAction.seq(TripDao.insert(s)))
-  }
 
-  private def initDatabase() = {
+  private def initDatabase() =
     db.run(DBIO.seq(TripDao.dropSchema().asTry.andFinally(TripDao.createSchema())))
-  }
 }
