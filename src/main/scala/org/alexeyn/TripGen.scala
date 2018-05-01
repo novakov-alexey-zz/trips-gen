@@ -36,6 +36,9 @@ object TripGen {
 
   private val completed = Gen.frequency(10 -> true, 1 -> false)
   private val requestTime = localDateTimeGen
+  private val rangeStart = LocalDateTime.now(UTC).minusMonths(6).toEpochSecond(UTC)
+  private val currentYear = LocalDateTime.now(UTC).getYear
+  private val rangeEnd = LocalDateTime.of(currentYear, 1, 1, 0, 0, 0).toEpochSecond(UTC)
 
   private val bikeWaitingTimeMins = Gen.choose(0, 1)
   private val taxiWaitingTimeMins = Gen.choose(0, 20)
@@ -110,9 +113,6 @@ object TripGen {
   }
 
   private def localDateTimeGen: Gen[LocalDateTime] = {
-    val rangeStart = LocalDateTime.now(UTC).minusMonths(6).toEpochSecond(UTC)
-    val currentYear = LocalDateTime.now(UTC).getYear
-    val rangeEnd = LocalDateTime.of(currentYear, 1, 1, 0, 0, 0).toEpochSecond(UTC)
     Gen.choose(rangeStart, rangeEnd).map(i => LocalDateTime.ofEpochSecond(i, 0, UTC))
   }
 }
