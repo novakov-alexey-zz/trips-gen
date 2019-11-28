@@ -9,9 +9,9 @@ lazy val root = (project in file("."))
 
 lazy val projectSettings = Seq(
   name := "trips-gen",
-  version := "0.1.0",
+  version := "0.1.1",
   organization := "org.alexeyn",
-  scalaVersion := "2.12.5",
+  scalaVersion := "2.13.1",
   resolvers ++= Seq(Resolver.sonatypeRepo("releases"), Resolver.sonatypeRepo("snapshots")),
   javacOptions ++= Seq("-source", "1.8", "-target", "1.8"),
   scalacOptions in Test ++= Seq("-Yrangepos"),
@@ -21,13 +21,13 @@ lazy val projectSettings = Seq(
   cancelable in Global := true
 )
 
-val slickVersion = "3.2.1"
+val slickVersion = "3.3.2"
 lazy val projectDependencies = Seq(
   "org.postgresql" % "postgresql" % "9.4-1203-jdbc4",
   "com.typesafe.slick" %% "slick" % slickVersion,
   "org.slf4j" % "slf4j-nop" % "1.6.4",
   "com.typesafe.slick" %% "slick-hikaricp" % slickVersion,
-  "org.scalacheck" %% "scalacheck" % "1.13.5"
+  "org.scalacheck" %% "scalacheck" % "1.14.2"
 )
 
 // https://tpolecat.github.io/2017/04/25/scalac-flags.html
